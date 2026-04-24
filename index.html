@@ -80,7 +80,7 @@
   .game-header { display:flex; align-items:center; gap:7px; margin-bottom:10px; padding-bottom:9px; border-bottom:1px solid var(--border); flex-wrap:wrap; }
   .team-tag { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:1px; padding:2px 8px; border-radius:4px; }
   .vs { color:var(--muted); font-size:10px; }
-  .game-meta { color:var(--muted); font-size:11px; }
+  .series-badge { font-size:10px; font-weight:600; padding:2px 8px; border-radius:4px; background:rgba(245,197,24,0.08); border:1px solid rgba(245,197,24,0.2); color:var(--gold); white-space:nowrap; }
   .game-time { margin-left:auto; color:var(--muted); font-size:10px; }
   .player-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:7px; }
   .player-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:11px; cursor:pointer; position:relative; }
@@ -103,7 +103,6 @@
   .confirm-info strong { color:var(--text); }
   .btn-save { padding:10px 22px; background:var(--gold); color:var(--court); border:none; border-radius:8px; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:1px; cursor:pointer; }
   .btn-save:hover { background:#ffd93d; }
-  /* Standings */
   .lb-header { margin-bottom:20px; }
   .lb-header h1 { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:2px; margin-bottom:3px; }
   .lb-header p { color:var(--muted); font-size:12px; }
@@ -124,7 +123,6 @@
   .lb-score .big { font-family:'Bebas Neue',sans-serif; font-size:24px; line-height:1; }
   .lb-score .sm { font-size:9px; color:var(--muted); letter-spacing:0.5px; }
   .me-tag { background:rgba(245,197,24,0.1); border:1px solid rgba(245,197,24,0.2); color:var(--gold); font-size:9px; padding:1px 5px; border-radius:3px; margin-left:4px; vertical-align:middle; }
-  /* Daily breakdown panel */
   .lb-breakdown { display:none; border-top:1px solid var(--border); background:var(--court); padding:12px 16px; }
   .lb-breakdown.open { display:block; }
   .breakdown-grid { display:flex; flex-wrap:wrap; gap:7px; }
@@ -136,16 +134,13 @@
   .breakdown-day .bd-detail { font-size:9px; color:var(--muted); margin-top:1px; }
   .breakdown-chevron { font-size:11px; color:var(--muted); transition:transform 0.2s; margin-left:4px; }
   .breakdown-chevron.open { transform:rotate(180deg); }
-  /* Reveals / pick history */
   .reveals-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:9px; margin-bottom:20px; }
   .reveal-card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:14px; }
   .reveal-card.hidden-card { background:var(--card); text-align:center; padding:22px 14px; }
   .reveal-name { font-size:10px; font-weight:500; color:var(--muted); margin-bottom:7px; text-transform:uppercase; letter-spacing:1px; }
   .reveal-icon { font-size:24px; margin-bottom:5px; }
   .reveal-text { font-size:11px; color:var(--muted); line-height:1.5; }
-  /* Full pick history on standings */
   .pick-history-section { margin-bottom:20px; }
-  .pick-history-section h2 { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; color:var(--muted); margin-bottom:10px; }
   .ph-table { width:100%; border-collapse:collapse; }
   .ph-table th { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:6px 10px; text-align:left; border-bottom:1px solid var(--border); font-weight:600; }
   .ph-table th.center { text-align:center; }
@@ -159,7 +154,6 @@
   .ph-detail { font-size:10px; color:var(--muted); }
   .user-col { display:flex; flex-direction:column; align-items:center; gap:2px; }
   .user-col .uc-name { font-size:9px; font-weight:600; }
-  /* History */
   .score-bar { background:var(--panel); border:1px solid var(--border); border-radius:13px; padding:16px; margin-bottom:20px; display:flex; align-items:center; gap:16px; }
   .big-num { font-family:'Bebas Neue',sans-serif; font-size:48px; color:var(--gold); line-height:1; flex-shrink:0; }
   .score-meta h3 { font-size:14px; font-weight:600; }
@@ -260,51 +254,40 @@ const USER_MAP = {
   'jamesleoatkin@gmail.com':   { name:'James',  color:'#a855f7' },
 };
 
-// Day 1 pre-loaded picks (Apr 18)
 const DAY1_PICKS = [
-  { email:'hamduck1@hotmail.com',      player_name:'Scottie Barnes', team:'TOR', day_date:'2026-04-18', player_id:'espn-4395369' },
+  { email:'hamduck1@hotmail.com',      player_name:'Scottie Barnes', team:'TOR', day_date:'2026-04-18', player_id:'espn-4433134' },
   { email:'sam.goldsworthy@yahoo.com', player_name:'LeBron James',   team:'LAL', day_date:'2026-04-18', player_id:'espn-1966' },
   { email:'standy_38@hotmail.com',     player_name:'Jalen Johnson',  team:'ATL', day_date:'2026-04-18', player_id:'espn-4433218' },
   { email:'jamesleoatkin@gmail.com',   player_name:'LeBron James',   team:'LAL', day_date:'2026-04-18', player_id:'espn-1966' },
 ];
 
-// ── ESPN API ──
+// Playoffs start — pre-playoff dates hidden from history table
+const PLAYOFFS_START = '2026-04-18';
+
 const ESPN = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba';
 const ESPN_WEB = 'https://site.web.api.espn.com/apis/site/v2/sports/basketball/nba';
 
 const cache = { scoreboard:{}, roster:{}, boxscore:{}, playoffStats:{} };
 
-// Format date for ESPN: YYYYMMDD
 function espnDate(isoDate) { return isoDate.replace(/-/g,''); }
 
-// ── FIX #1: Robust scoreboard fetch ──
-// Uses both playoff filter AND a fallback: if no playoff games found, try with
-// seasontype=3 (post-season) query param which is more reliable
+// ── SCOREBOARD — with series summary extraction ──
 async function fetchScoreboard(isoDate) {
   if (cache.scoreboard[isoDate]) return cache.scoreboard[isoDate];
   try {
-    // Try with explicit post-season seasontype first
     const res = await fetch(`${ESPN}/scoreboard?dates=${espnDate(isoDate)}&limit=20&seasontype=3`);
     if (res.ok) {
       const data = await res.json();
       const games = parseGamesFromResponse(data);
-      if (games.length > 0) {
-        cache.scoreboard[isoDate] = games;
-        return games;
-      }
+      if (games.length > 0) { cache.scoreboard[isoDate] = games; return games; }
     }
-    // Fallback: regular scoreboard with playoff filter
     const res2 = await fetch(`${ESPN}/scoreboard?dates=${espnDate(isoDate)}&limit=20`);
     if (!res2.ok) { cache.scoreboard[isoDate] = []; return []; }
     const data2 = await res2.json();
     const games2 = parseGamesFromResponse(data2, true);
     cache.scoreboard[isoDate] = games2;
     return games2;
-  } catch(e) {
-    console.log('scoreboard err:', e);
-    cache.scoreboard[isoDate] = [];
-    return [];
-  }
+  } catch(e) { console.log('scoreboard err:', e); cache.scoreboard[isoDate] = []; return []; }
 }
 
 function parseGamesFromResponse(data, filterPlayoffs = false) {
@@ -319,14 +302,35 @@ function parseGamesFromResponse(data, filterPlayoffs = false) {
   return filtered.map(e => {
     const comp = e.competitions[0];
     const competitors = comp.competitors || [];
-
-    // ── FIX #1: Defensive home/away extraction ──
-    // Some games have both listed as 'away' or homeAway is missing — fall back to index
     let home = competitors.find(c => c.homeAway === 'home');
     let away = competitors.find(c => c.homeAway === 'away');
     if (!home && competitors.length >= 1) home = competitors[0];
     if (!away && competitors.length >= 2) away = competitors[1];
-    if (!home || !away) return null; // truly broken entry
+    if (!home || !away) return null;
+
+    // Extract series summary — try multiple locations ESPN might put it
+    let seriesSummary = '';
+    const seriesObj = comp.series || e.series || null;
+    if (seriesObj) {
+      if (seriesObj.summary) {
+        seriesSummary = seriesObj.summary;
+      } else if (seriesObj.competitors) {
+        const sc = seriesObj.competitors;
+        const homeEntry = sc.find(c => c.homeAway === 'home') || sc[0];
+        const awayEntry = sc.find(c => c.homeAway === 'away') || sc[1];
+        const homeWins = parseInt(homeEntry?.wins || 0);
+        const awayWins = parseInt(awayEntry?.wins || 0);
+        if (homeWins === 0 && awayWins === 0) {
+          seriesSummary = '';
+        } else if (homeWins === awayWins) {
+          seriesSummary = `Series tied ${homeWins}-${awayWins}`;
+        } else if (homeWins > awayWins) {
+          seriesSummary = `${home.team.abbreviation} leads ${homeWins}-${awayWins}`;
+        } else {
+          seriesSummary = `${away.team.abbreviation} leads ${awayWins}-${homeWins}`;
+        }
+      }
+    }
 
     return {
       gameId: e.id,
@@ -340,26 +344,21 @@ function parseGamesFromResponse(data, filterPlayoffs = false) {
       time: e.status?.type?.shortDetail || '',
       startTime: e.date,
       notes: comp.notes?.[0]?.headline || '',
+      seriesSummary,
     };
   }).filter(Boolean);
 }
 
-// Fetch team roster
 async function fetchRoster(teamId, teamAbbr) {
   if (cache.roster[teamId]) return cache.roster[teamId];
   try {
     const res = await fetch(`${ESPN}/teams/${teamId}/roster`);
     if (!res.ok) return [];
     const data = await res.json();
-    // ESPN roster uses top-level athletes array or nested by position groups
     let athleteList = [];
     if (Array.isArray(data.athletes)) {
-      // Could be flat array or position-grouped array
       if (data.athletes.length > 0 && data.athletes[0].items) {
-        // Position groups format: [{position, items:[...]}]
-        data.athletes.forEach(group => {
-          if (Array.isArray(group.items)) athleteList.push(...group.items);
-        });
+        data.athletes.forEach(group => { if (Array.isArray(group.items)) athleteList.push(...group.items); });
       } else {
         athleteList = data.athletes;
       }
@@ -370,46 +369,30 @@ async function fetchRoster(teamId, teamAbbr) {
       name: a.displayName || a.fullName || 'Unknown',
       pos: a.position?.abbreviation || 'F',
       pts: 0, reb: 0, ast: 0,
-      playoffPts: null, playoffReb: null, playoffAst: null, playoffGames: 0,
+      playoffGames: 0,
       team: teamAbbr,
     }));
     cache.roster[teamId] = players;
-    // Enrich with playoff stats in background — don't await, cards update when ready
     enrichWithPlayoffStats(players, teamId);
     return players;
   } catch(e) { console.log('roster err:', e); return []; }
 }
 
-// ── FIX #2 + IMPROVEMENT #1: Fetch actual playoff averages ──
-// Uses the ESPN athlete stats endpoint with seasontype=3 (playoffs)
-// Falls back to team boxscore data if per-player endpoint fails
 async function enrichWithPlayoffStats(players, teamId) {
   if (cache.playoffStats[teamId]) {
-    // Already fetched — merge
     const statsMap = cache.playoffStats[teamId];
-    players.forEach(p => {
-      if (statsMap[p.espnId]) Object.assign(p, statsMap[p.espnId]);
-    });
+    players.forEach(p => { if (statsMap[p.espnId]) Object.assign(p, statsMap[p.espnId]); });
     return;
   }
-
   const statsMap = {};
-
-  // Strategy: fetch team's recent playoff games and aggregate from boxscores
-  // This is more reliable than the per-athlete stats endpoint
   try {
-    // Get team schedule for current post-season
     const schedRes = await fetch(`${ESPN}/teams/${teamId}/schedule?seasontype=3&season=2026`);
     if (schedRes.ok) {
       const schedData = await schedRes.json();
       const events = schedData.events || [];
-      const finishedGames = events
-        .filter(e => e.competitions?.[0]?.status?.type?.completed)
-        .slice(-10); // last 10 playoff games max
-
+      const finishedGames = events.filter(e => e.competitions?.[0]?.status?.type?.completed).slice(-10);
       for (const ev of finishedGames) {
-        const gameId = ev.id;
-        const bs = await fetchBoxscore(gameId);
+        const bs = await fetchBoxscore(ev.id);
         if (!bs) continue;
         for (const [pid, stats] of Object.entries(bs)) {
           if (!statsMap[pid]) statsMap[pid] = { playoffPts:0, playoffReb:0, playoffAst:0, playoffGames:0 };
@@ -421,8 +404,6 @@ async function enrichWithPlayoffStats(players, teamId) {
       }
     }
   } catch(e) { console.log('playoff stats err:', e); }
-
-  // Convert totals to averages
   for (const pid of Object.keys(statsMap)) {
     const s = statsMap[pid];
     if (s.playoffGames > 0) {
@@ -434,21 +415,10 @@ async function enrichWithPlayoffStats(players, teamId) {
       };
     }
   }
-
   cache.playoffStats[teamId] = statsMap;
-
-  // Merge into player objects
-  players.forEach(p => {
-    if (statsMap[p.espnId]) {
-      p.pts = statsMap[p.espnId].pts;
-      p.reb = statsMap[p.espnId].reb;
-      p.ast = statsMap[p.espnId].ast;
-      p.playoffGames = statsMap[p.espnId].playoffGames;
-    }
-  });
+  players.forEach(p => { if (statsMap[p.espnId]) Object.assign(p, statsMap[p.espnId]); });
 }
 
-// Fetch boxscore for a game — returns map of espnId -> {pts, reb, ast}
 async function fetchBoxscore(gameId) {
   if (cache.boxscore[gameId]) return cache.boxscore[gameId];
   try {
@@ -481,7 +451,6 @@ async function fetchBoxscore(gameId) {
   } catch(e) { console.log('boxscore err:', e); return null; }
 }
 
-// Auto-fetch scores for locked picks whose stats are missing
 async function autoUpdateScores() {
   const { data: picks } = await sb.from('picks').select('*').eq('locked', true).is('pts', null);
   if (!picks || picks.length === 0) return;
@@ -493,32 +462,24 @@ async function autoUpdateScores() {
   for (const dateStr of Object.keys(byDate)) {
     const games = await fetchScoreboard(dateStr);
     for (const game of games) {
-      const statusLow = game.status.toLowerCase();
-      if (!statusLow.includes('final')) continue;
+      if (!game.status.toLowerCase().includes('final')) continue;
       const bs = await fetchBoxscore(game.gameId);
       if (!bs) continue;
       for (const pick of byDate[dateStr]) {
         const espnId = pick.player_id.replace('espn-','');
         if (bs[espnId] !== undefined) {
-          await sb.from('picks').update({
-            pts: bs[espnId].pts,
-            reb: bs[espnId].reb,
-            ast: bs[espnId].ast,
-          }).eq('id', pick.id);
+          await sb.from('picks').update({ pts: bs[espnId].pts, reb: bs[espnId].reb, ast: bs[espnId].ast }).eq('id', pick.id);
         }
       }
     }
   }
 }
 
-// Lock past picks
 async function lockPastPicks() {
   const today = localDateStr();
   await sb.from('picks').update({ locked: true }).lt('day_date', today).eq('locked', false);
 }
 
-// ── FIX #3: Use local date, not UTC, everywhere ──
-// toISOString() returns UTC which can be a day behind for AEST users
 function localDateStr(date) {
   const d = date || new Date();
   const y = d.getFullYear();
@@ -536,7 +497,6 @@ let editingDay = false;
 let allPicks = {};
 let playoffDays = [];
 let todayStr = '';
-let openBreakdown = null; // track which standings row is expanded
 
 // ── AUTH ──
 async function handleLogin() {
@@ -557,7 +517,7 @@ async function handleLogin() {
 async function handleLogout() {
   await sb.auth.signOut();
   currentUser = null; currentProfile = null; allPicks = {}; playoffDays = [];
-  selectedPlayerId = null; activeDayId = null; editingDay = false; openBreakdown = null;
+  selectedPlayerId = null; activeDayId = null; editingDay = false;
   document.getElementById('appScreen').classList.remove('active');
   document.getElementById('loginScreen').classList.add('active');
   document.getElementById('emailInput').value = '';
@@ -584,17 +544,14 @@ async function initApp(user) {
   av.style.background = `linear-gradient(135deg,${currentProfile.color},${currentProfile.color}88)`;
   document.getElementById('loginScreen').classList.remove('active');
   document.getElementById('appScreen').classList.add('active');
-
-  todayStr = localDateStr(); // ← FIX #3: local date
-
+  todayStr = localDateStr();
   await seedUserData();
   lockPastPicks();
   autoUpdateScores();
   await loadAllPicks();
   await buildCalendar();
-
   renderCalendar();
-  scrollCalendarToToday(); // ← IMPROVEMENT #5
+  scrollCalendarToToday();
   if (activeDayId) renderDayView(activeDayId);
   renderStandings();
   renderHistory();
@@ -609,13 +566,8 @@ async function seedUserData() {
     const { data: existing } = await sb.from('picks').select('id').eq('user_id', currentUser.id).eq('day_date', myDay1.day_date).maybeSingle();
     if (!existing) {
       await sb.from('picks').insert({
-        user_id: currentUser.id,
-        day_date: myDay1.day_date,
-        player_id: myDay1.player_id,
-        player_name: myDay1.player_name,
-        team: myDay1.team,
-        locked: true,
-        pts: null, reb: null, ast: null,
+        user_id: currentUser.id, day_date: myDay1.day_date, player_id: myDay1.player_id,
+        player_name: myDay1.player_name, team: myDay1.team, locked: true, pts: null, reb: null, ast: null,
       });
     }
   }
@@ -630,45 +582,34 @@ async function loadAllPicks() {
   });
 }
 
-// ── BUILD CALENDAR ──
 async function buildCalendar() {
   playoffDays = [];
   const now = new Date();
-  // Check 14 days back and 21 days forward for full first-round coverage
   for (let i = -14; i <= 21; i++) {
     const d = new Date(now);
     d.setDate(d.getDate() + i);
-    const dateStr = localDateStr(d); // ← FIX #3: local date
-
+    const dateStr = localDateStr(d);
     const games = await fetchScoreboard(dateStr);
     if (games.length === 0) continue;
-
     const isPast = dateStr < todayStr;
     const isToday = dateStr === todayStr;
     let status = isPast ? 'locked' : isToday ? 'open' : 'future';
-
-    // ── FIX #3: Lock check uses local time correctly ──
     if (isToday) {
       const firstGame = games.slice().sort((a,b) => new Date(a.startTime) - new Date(b.startTime))[0];
       if (firstGame && new Date(firstGame.startTime) <= now) status = 'locked';
     }
-
     const dayNames = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
     const monthNames = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-
     playoffDays.push({
       isoDate: dateStr,
       dayName: dayNames[d.getDay()],
       shortDate: String(d.getDate()),
       monthLabel: monthNames[d.getMonth()],
-      status,
-      games,
+      status, games,
       playersByTeam: {},
     });
   }
-
   playoffDays.sort((a,b) => a.isoDate.localeCompare(b.isoDate));
-
   const todayDay = playoffDays.find(d => d.isoDate === todayStr);
   if (todayDay) activeDayId = todayDay.isoDate;
   else {
@@ -692,20 +633,14 @@ function getMyUsedPlayerIds() {
   return new Set(Object.values(mine).map(p => p.player_id).filter(Boolean));
 }
 
-// ── IMPROVEMENT #5: Auto-scroll calendar to today ──
 function scrollCalendarToToday() {
   const strip = document.getElementById('calendarStrip');
   const activePill = strip.querySelector('.day-pill.active');
   if (activePill) {
-    // Centre the active pill in the strip
-    const pillLeft = activePill.offsetLeft;
-    const pillWidth = activePill.offsetWidth;
-    const stripWidth = strip.offsetWidth;
-    strip.scrollLeft = pillLeft - (stripWidth / 2) + (pillWidth / 2);
+    strip.scrollLeft = activePill.offsetLeft - (strip.offsetWidth / 2) + (activePill.offsetWidth / 2);
   }
 }
 
-// ── CALENDAR RENDER ──
 function renderCalendar() {
   const strip = document.getElementById('calendarStrip');
   strip.innerHTML = playoffDays.map(day => {
@@ -738,15 +673,12 @@ async function selectDay(isoDate) {
 // ── DAY VIEW ──
 async function renderDayView(isoDate) {
   document.getElementById('dayView').innerHTML = '<div class="loading"><div class="spinner"></div>Loading players...</div>';
-
   const day = playoffDays.find(d => d.isoDate === isoDate);
   if (!day) { document.getElementById('dayView').innerHTML = '<div class="loading">No games for this day.</div>'; return; }
-
   const isLocked = day.status === 'locked';
   const isToday = day.isoDate === todayStr;
   const myPick = allPicks[currentUser.id]?.[day.isoDate];
   const usedIds = getMyUsedPlayerIds();
-
   const allDayPlayers = await getPlayersForDay(day);
 
   let badge = '';
@@ -758,9 +690,7 @@ async function renderDayView(isoDate) {
   if (isLocked && myPick) {
     const hasScore = myPick.pts != null;
     const total = hasScore ? myPick.pts + myPick.reb + myPick.ast : '—';
-    const statsStr = hasScore
-      ? `${myPick.pts} pts · ${myPick.reb} reb · ${myPick.ast} ast`
-      : '⏱ Stats updating...';
+    const statsStr = hasScore ? `${myPick.pts} pts · ${myPick.reb} reb · ${myPick.ast} ast` : '⏱ Stats updating...';
     pickHtml = `<div class="section-label">YOUR LOCKED PICK</div>
     <div class="my-pick-card"><div style="display:flex;align-items:center;gap:12px;">
       <div class="pick-slot-locked">🔒</div>
@@ -798,11 +728,28 @@ async function renderDayView(isoDate) {
 
   const grids = day.games.map(g => {
     const gamePlayers = allDayPlayers.filter(p => p.team === g.home || p.team === g.away);
+
+    // Sort by P+R+A descending — zeros go to bottom
+    gamePlayers.sort((a, b) => {
+      const at = a.pts + a.reb + a.ast;
+      const bt = b.pts + b.reb + b.ast;
+      if (at === 0 && bt === 0) return 0;
+      if (at === 0) return 1;
+      if (bt === 0) return -1;
+      return bt - at;
+    });
+
+    // Series badge
+    const seriesBadge = g.seriesSummary
+      ? `<span class="series-badge">${g.seriesSummary}</span>`
+      : '';
+
     if (gamePlayers.length === 0) return `<div class="game-section">
       <div class="game-header">
         <span class="team-tag" style="background:${g.homeColor}22;color:${g.homeColor};border:1px solid ${g.homeColor}44">${g.home}</span>
         <span class="vs">vs</span>
         <span class="team-tag" style="background:${g.awayColor}22;color:${g.awayColor};border:1px solid ${g.awayColor}44">${g.away}</span>
+        ${seriesBadge}
         <span class="game-time">${g.time}</span>
       </div>
       <div style="color:var(--muted);font-size:12px;padding:10px 0;">Loading roster...</div>
@@ -818,8 +765,7 @@ async function renderDayView(isoDate) {
       if ((isSaved && !editingDay) || isSelected) cls += ' selected';
       const clickable = !isUsed && !isLocked && (editingDay || !myPick || isSaved);
       const avg = (p.pts + p.reb + p.ast).toFixed(1);
-      // ── IMPROVEMENT #1: Show playoff stats label ──
-      const statsLabel = p.playoffGames > 0 ? `∑ ${avg} playoff avg` : `∑ ${avg} (no playoff data)`;
+      const statsLabel = p.playoffGames > 0 ? `∑ ${avg} playoff avg` : `∑ ${avg} (no data yet)`;
       const cardBadge = (isSaved && !editingDay) ? '<span class="card-badge badge-pick">✓ SAVED</span>'
         : isSelected ? '<span class="card-badge badge-pick">→ SELECT</span>'
         : isUsed ? '<span class="card-badge badge-used">USED</span>' : '';
@@ -841,6 +787,7 @@ async function renderDayView(isoDate) {
         <span class="team-tag" style="background:${g.homeColor}22;color:${g.homeColor};border:1px solid ${g.homeColor}44">${g.home}</span>
         <span class="vs">vs</span>
         <span class="team-tag" style="background:${g.awayColor}22;color:${g.awayColor};border:1px solid ${g.awayColor}44">${g.away}</span>
+        ${seriesBadge}
         <span class="game-time">${g.time}</span>
       </div>
       <div class="player-grid">${cards}</div>
@@ -886,13 +833,8 @@ async function savePick() {
   if (!player) return;
   const wasEdit = !!(allPicks[currentUser.id]?.[day.isoDate]);
   const { error } = await sb.from('picks').upsert({
-    user_id: currentUser.id,
-    day_date: day.isoDate,
-    player_id: player.id,
-    player_name: player.name,
-    team: player.team,
-    locked: false,
-    pts: null, reb: null, ast: null,
+    user_id: currentUser.id, day_date: day.isoDate, player_id: player.id,
+    player_name: player.name, team: player.team, locked: false, pts: null, reb: null, ast: null,
   }, { onConflict: 'user_id,day_date' });
   if (error) { showToast('Error saving. Try again.', false, true); return; }
   selectedPlayerId = null;
@@ -906,26 +848,19 @@ async function savePick() {
 }
 
 // ── STANDINGS ──
-// ── IMPROVEMENT #2: Per-day breakdown ──
-// ── IMPROVEMENT #4: Full pick history ──
 async function renderStandings() {
   const { data: profiles } = await sb.from('profiles').select('*');
   const { data: picks } = await sb.from('picks').select('*');
   if (!profiles || !picks) return;
 
-  // Build scores and per-day breakdown
   const scores = {}, counts = {}, dailyBreakdown = {};
   profiles.forEach(p => { scores[p.id] = 0; counts[p.id] = 0; dailyBreakdown[p.id] = []; });
-
   picks.forEach(pick => {
     if (pick.pts != null) {
-      const total = pick.pts + pick.reb + pick.ast;
-      scores[pick.user_id] = (scores[pick.user_id] || 0) + total;
+      scores[pick.user_id] = (scores[pick.user_id] || 0) + pick.pts + pick.reb + pick.ast;
       counts[pick.user_id] = (counts[pick.user_id] || 0) + 1;
     }
-    if (dailyBreakdown[pick.user_id]) {
-      dailyBreakdown[pick.user_id].push(pick);
-    }
+    if (dailyBreakdown[pick.user_id]) dailyBreakdown[pick.user_id].push(pick);
   });
 
   const sorted = [...profiles].sort((a, b) => (scores[b.id] || 0) - (scores[a.id] || 0));
@@ -934,12 +869,17 @@ async function renderStandings() {
   document.getElementById('lbList').innerHTML = sorted.map((p, i) => {
     const isMe = p.id === currentUser.id;
     const color = Object.values(USER_MAP).find(u => u.name === p.name)?.color || '#f5c518';
-    const myDays = (dailyBreakdown[p.id] || [])
-      .sort((a, b) => b.day_date.localeCompare(a.day_date));
+    const myDays = (dailyBreakdown[p.id] || []).sort((a, b) => b.day_date.localeCompare(a.day_date));
 
-    const breakdownHtml = myDays.length === 0
-      ? '<div style="padding:8px 0;font-size:12px;color:var(--muted);">No picks yet</div>'
-      : `<div class="breakdown-grid">${myDays.map(pick => {
+    // Only show locked picks to others — hide future picks
+    const visibleDays = myDays.filter(pick => {
+      const isPickLocked = pick.locked || pick.day_date < todayStr;
+      return isMe || isPickLocked;
+    });
+
+    const breakdownHtml = visibleDays.length === 0
+      ? '<div style="padding:8px 0;font-size:12px;color:var(--muted);">No scored picks yet</div>'
+      : `<div class="breakdown-grid">${visibleDays.map(pick => {
           const day = playoffDays.find(d => d.isoDate === pick.day_date);
           const dateLabel = day ? `${day.dayName} ${day.shortDate}` : pick.day_date.slice(5);
           const hasScore = pick.pts != null;
@@ -972,14 +912,11 @@ async function renderStandings() {
     </div>`;
   }).join('');
 
-  // Today's picks section
+  // Today's picks
   const todayPicks = picks.filter(p => p.day_date === todayStr);
   const todayDay = playoffDays.find(d => d.isoDate === todayStr);
   const todayLocked = todayDay?.status === 'locked';
-  const hasTodayGames = !!todayDay;
-  document.getElementById('todayPicksLabel').textContent = todayLocked
-    ? "TODAY'S PICKS"
-    : "TODAY'S PICKS — HIDDEN UNTIL TIP-OFF";
+  document.getElementById('todayPicksLabel').textContent = todayLocked ? "TODAY'S PICKS" : "TODAY'S PICKS — HIDDEN UNTIL TIP-OFF";
   document.getElementById('revealsGrid').innerHTML = profiles.map(p => {
     const isMe = p.id === currentUser.id;
     const color = Object.values(USER_MAP).find(u => u.name === p.name)?.color || '#f5c518';
@@ -994,51 +931,47 @@ async function renderStandings() {
     </div>`;
   }).join('');
 
-  // ── IMPROVEMENT #4: Full pick history table (shown after tip-off for past days) ──
-  const lockedDays = playoffDays.filter(d => d.status === 'locked');
+  // Full history table — only from playoffs start, hide future picks for others
+  const lockedDays = playoffDays.filter(d => d.status === 'locked' && d.isoDate >= PLAYOFFS_START);
   if (lockedDays.length > 0) {
     document.getElementById('pickHistorySection').style.display = 'block';
-    const profilesSorted = [...profiles].sort((a,b) => {
-      // Sort users by name for consistent columns
-      const na = Object.values(USER_MAP).find(u=>u.name===a.name)?.name || a.name;
-      const nb = Object.values(USER_MAP).find(u=>u.name===b.name)?.name || b.name;
+    const profilesSorted = [...profiles].sort((a, b) => {
+      const na = Object.values(USER_MAP).find(u => u.name === a.name)?.name || a.name;
+      const nb = Object.values(USER_MAP).find(u => u.name === b.name)?.name || b.name;
       return na.localeCompare(nb);
     });
     const userColors = {};
-    profilesSorted.forEach(p => {
-      userColors[p.id] = Object.values(USER_MAP).find(u => u.name === p.name)?.color || '#f5c518';
-    });
+    profilesSorted.forEach(p => { userColors[p.id] = Object.values(USER_MAP).find(u => u.name === p.name)?.color || '#f5c518'; });
 
     const headerCols = profilesSorted.map(p =>
       `<th class="center"><div class="user-col"><div style="width:20px;height:20px;border-radius:50%;background:${userColors[p.id]}33;color:${userColors[p.id]};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;margin:0 auto;">${p.name[0]}</div><div class="uc-name" style="color:${userColors[p.id]}">${p.name}</div></div></th>`
     ).join('');
 
-    const rows = lockedDays
-      .slice()
-      .sort((a,b) => b.isoDate.localeCompare(a.isoDate)) // most recent first
-      .map(day => {
-        const dateCells = profilesSorted.map(prof => {
-          const pick = picks.find(pk => pk.user_id === prof.id && pk.day_date === day.isoDate);
-          if (!pick) return `<td class="center ph-hidden">—</td>`;
-          const hasScore = pick.pts != null;
-          if (hasScore) {
-            const total = pick.pts + pick.reb + pick.ast;
-            return `<td class="center">
-              <div class="ph-name" style="font-size:11px;">${pick.player_name}</div>
-              <div class="ph-score">${total}</div>
-              <div class="ph-detail">${pick.pts}p ${pick.reb}r ${pick.ast}a</div>
-            </td>`;
-          }
+    const rows = lockedDays.slice().sort((a, b) => b.isoDate.localeCompare(a.isoDate)).map(day => {
+      const dateCells = profilesSorted.map(prof => {
+        const pick = picks.find(pk => pk.user_id === prof.id && pk.day_date === day.isoDate);
+        if (!pick) return `<td class="center ph-hidden">—</td>`;
+        const pickIsLocked = pick.locked || pick.day_date < todayStr;
+        if (!pickIsLocked && pick.user_id !== currentUser.id) return `<td class="center ph-hidden">🔒</td>`;
+        const hasScore = pick.pts != null;
+        if (hasScore) {
+          const total = pick.pts + pick.reb + pick.ast;
           return `<td class="center">
             <div class="ph-name" style="font-size:11px;">${pick.player_name}</div>
-            <div class="ph-pending">⏱ Pending</div>
+            <div class="ph-score">${total}</div>
+            <div class="ph-detail">${pick.pts}p ${pick.reb}r ${pick.ast}a</div>
           </td>`;
-        }).join('');
-        return `<tr>
-          <td><div style="font-size:11px;font-weight:600;">${day.dayName} ${day.shortDate}</div><div class="ph-detail">${day.monthLabel}</div></td>
-          ${dateCells}
-        </tr>`;
+        }
+        return `<td class="center">
+          <div class="ph-name" style="font-size:11px;">${pick.player_name}</div>
+          <div class="ph-pending">⏱ Pending</div>
+        </td>`;
       }).join('');
+      return `<tr>
+        <td><div style="font-size:11px;font-weight:600;">${day.dayName} ${day.shortDate}</div><div class="ph-detail">${day.monthLabel}</div></td>
+        ${dateCells}
+      </tr>`;
+    }).join('');
 
     document.getElementById('pickHistTable').innerHTML = `
       <thead><tr><th>DATE</th>${headerCols}</tr></thead>
@@ -1051,7 +984,6 @@ function toggleBreakdown(bdId, rowEl) {
   const chevId = bdId.replace('bd-', 'chev-');
   const chev = document.getElementById(chevId);
   const isOpen = bd.classList.contains('open');
-  // Close any other open one
   document.querySelectorAll('.lb-breakdown.open').forEach(el => el.classList.remove('open'));
   document.querySelectorAll('.breakdown-chevron.open').forEach(el => el.classList.remove('open'));
   if (!isOpen) {
@@ -1061,7 +993,6 @@ function toggleBreakdown(bdId, rowEl) {
 }
 
 // ── HISTORY ──
-// ── IMPROVEMENT #3: Clearer status badges ──
 async function renderHistory() {
   const { data: picks } = await sb.from('picks').select('*').eq('user_id', currentUser.id).order('day_date', { ascending: false });
   const { data: allPicksData } = await sb.from('picks').select('*');
@@ -1086,25 +1017,15 @@ async function renderHistory() {
         const day = playoffDays.find(d => d.isoDate === pick.day_date);
         const dateLabel = day ? `${day.dayName} ${day.shortDate}` : pick.day_date.slice(5);
         const hasScore = pick.pts != null;
-
-        // ── IMPROVEMENT #3: three distinct states ──
-        // 1. Scored → show gold number
-        // 2. Locked but no score yet → blue "⏱ Updating" badge
-        // 3. Not yet locked → gold "SAVED" badge
         let scoreEl;
         if (hasScore) {
-          const total = pick.pts + pick.reb + pick.ast;
-          scoreEl = `<div class="hist-score">${total}</div>`;
+          scoreEl = `<div class="hist-score">${pick.pts + pick.reb + pick.ast}</div>`;
         } else if (pick.locked) {
           scoreEl = `<div class="hist-badge awaiting">⏱ Updating</div>`;
         } else {
           scoreEl = `<div class="hist-badge saved">SAVED</div>`;
         }
-
-        const statsStr = hasScore
-          ? `${pick.pts} pts · ${pick.reb} reb · ${pick.ast} ast`
-          : pick.team;
-
+        const statsStr = hasScore ? `${pick.pts} pts · ${pick.reb} reb · ${pick.ast} ast` : pick.team;
         return `<div class="hist-row">
           <div class="hist-date">${dateLabel}</div>
           <div class="hist-player"><h4>${pick.player_name}</h4><p>${statsStr}</p></div>
