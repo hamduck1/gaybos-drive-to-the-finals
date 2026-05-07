@@ -13,8 +13,6 @@
   body::before { content:''; position:fixed; inset:0; background:radial-gradient(ellipse 80% 40% at 50% 100%,rgba(245,197,24,0.04) 0%,transparent 70%); pointer-events:none; z-index:0; }
   .screen { display:none; min-height:100vh; position:relative; z-index:1; }
   .screen.active { display:flex; flex-direction:column; }
-
-  /* ── LOGIN ── */
   #loginScreen { align-items:center; justify-content:center; padding:40px 20px; }
   .login-box { width:100%; max-width:380px; text-align:center; }
   .login-logo { font-family:'Bebas Neue',sans-serif; font-size:44px; letter-spacing:3px; color:var(--gold); line-height:1.1; margin-bottom:2px; }
@@ -30,18 +28,6 @@
   .btn-primary:hover { background:#ffd93d; }
   .btn-primary:disabled { opacity:0.5; cursor:not-allowed; }
   .login-error { color:var(--red); font-size:12px; margin-top:10px; padding:8px 12px; background:rgba(224,48,48,0.1); border-radius:6px; border:1px solid rgba(224,48,48,0.2); display:none; }
-
-  /* ── DISCLAIMER ── */
-  #disclaimerScreen { align-items:center; justify-content:center; padding:40px 20px; }
-  .disclaimer-box { width:100%; max-width:400px; text-align:center; }
-  .disclaimer-icon { font-size:52px; margin-bottom:16px; }
-  .disclaimer-title { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:3px; color:var(--red); margin-bottom:20px; }
-  .disclaimer-card { background:var(--panel); border:1px solid rgba(224,48,48,0.3); border-radius:16px; padding:26px; text-align:left; }
-  .disclaimer-card p { font-size:14px; line-height:1.75; color:var(--text); margin-bottom:24px; }
-  .btn-agree { width:100%; padding:14px; background:var(--red); color:#fff; border:none; border-radius:9px; font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:2px; cursor:pointer; }
-  .btn-agree:hover { background:#ff4444; }
-
-  /* ── NAV ── */
   nav { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--border); background:rgba(10,10,15,0.97); position:sticky; top:0; z-index:100; backdrop-filter:blur(10px); gap:10px; }
   .logo { font-family:'Bebas Neue',sans-serif; font-size:17px; letter-spacing:2px; color:var(--gold); line-height:1; white-space:nowrap; }
   .logo span { color:var(--text); }
@@ -51,11 +37,7 @@
   .nav-tab { padding:5px 10px; border-radius:5px; font-size:12px; font-weight:500; cursor:pointer; color:var(--muted); border:none; background:none; white-space:nowrap; }
   .nav-tab:hover { color:var(--text); }
   .nav-tab.active { background:var(--card); color:var(--gold); }
-
-  /* ── LAYOUT ── */
   .content { flex:1; padding:18px 16px; max-width:960px; margin:0 auto; width:100%; }
-
-  /* ── CALENDAR ── */
   .calendar-strip { display:flex; gap:7px; overflow-x:auto; padding-bottom:4px; margin-bottom:20px; scrollbar-width:none; }
   .calendar-strip::-webkit-scrollbar { display:none; }
   .day-pill { flex-shrink:0; background:var(--panel); border:1px solid var(--border); border-radius:11px; padding:9px 12px; cursor:pointer; text-align:center; min-width:68px; position:relative; }
@@ -69,8 +51,6 @@
   .dp-teams { font-size:8px; color:var(--muted); line-height:1.4; }
   .pick-dot { width:6px; height:6px; border-radius:50%; background:var(--green); position:absolute; top:7px; right:7px; }
   .lock-dot { width:6px; height:6px; border-radius:50%; background:var(--red); position:absolute; top:7px; right:7px; }
-
-  /* ── DAY HEADER ── */
   .day-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:8px; }
   .day-header h1 { font-family:'Bebas Neue',sans-serif; font-size:27px; letter-spacing:2px; }
   .day-header h1 span { color:var(--gold); }
@@ -84,8 +64,6 @@
   .dot.red { background:var(--red); }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   .section-label { font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:9px; }
-
-  /* ── MY PICK ── */
   .my-pick-card { background:var(--panel); border:1px solid var(--border); border-radius:13px; padding:15px; margin-bottom:20px; }
   .pick-empty { display:flex; align-items:center; gap:12px; color:var(--muted); }
   .pick-slot { width:46px; height:46px; border-radius:10px; border:2px dashed var(--border); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
@@ -98,26 +76,22 @@
   .pick-total { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--gold); line-height:1; }
   .btn-edit { padding:5px 11px; background:transparent; border:1px solid var(--border); border-radius:6px; color:var(--muted); font-size:11px; font-weight:600; cursor:pointer; }
   .btn-edit:hover { border-color:var(--gold); color:var(--gold); }
-
-  /* ── GAME SECTION ── */
   .game-section { margin-bottom:22px; }
   .game-header { display:flex; align-items:center; gap:7px; margin-bottom:10px; padding-bottom:9px; border-bottom:1px solid var(--border); flex-wrap:wrap; }
   .team-tag { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:1px; padding:2px 8px; border-radius:4px; }
   .vs { color:var(--muted); font-size:10px; }
   .series-badge { font-size:10px; font-weight:600; padding:2px 8px; border-radius:4px; background:rgba(245,197,24,0.08); border:1px solid rgba(245,197,24,0.2); color:var(--gold); white-space:nowrap; }
   .game-time { margin-left:auto; color:var(--muted); font-size:10px; }
-
-  /* ── PLAYER CARDS ── */
   .player-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:7px; }
   .player-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:11px; cursor:pointer; position:relative; transition:transform 0.1s; }
   .player-card:hover:not(.used):not(.day-locked) { border-color:rgba(245,197,24,0.4); background:rgba(245,197,24,0.04); transform:translateY(-1px); }
   .player-card.selected { border-color:var(--gold); background:rgba(245,197,24,0.07); }
   .player-card.used { opacity:0.35; cursor:not-allowed; }
   .player-card.day-locked { cursor:default; }
-  /* Injury tints */
   .player-card.inj-out { border-color:rgba(224,48,48,0.4); background:rgba(224,48,48,0.04); }
   .player-card.inj-doubtful { border-color:rgba(249,115,22,0.4); background:rgba(249,115,22,0.04); }
   .player-card.inj-questionable { border-color:rgba(234,179,8,0.35); background:rgba(234,179,8,0.04); }
+  .player-card.inj-dtd { border-color:rgba(234,179,8,0.35); background:rgba(234,179,8,0.04); }
   .player-name { font-weight:600; font-size:12px; margin-bottom:1px; line-height:1.3; }
   .player-pos { font-size:9px; color:var(--muted); margin-bottom:7px; }
   .player-stats { display:flex; gap:7px; }
@@ -125,26 +99,20 @@
   .stat .val { font-family:'Bebas Neue',sans-serif; font-size:16px; line-height:1; }
   .stat .lbl { font-size:8px; color:var(--muted); letter-spacing:0.5px; }
   .avg-lbl { font-size:9px; color:var(--gold); margin-top:6px; font-weight:600; }
-  /* Injury badge on card — top left so it doesn't overlap USED/SAVED badge top right */
   .inj-badge { position:absolute; top:7px; left:7px; font-size:8px; border-radius:3px; padding:1px 5px; font-weight:700; letter-spacing:0.3px; }
   .inj-badge.out { background:rgba(224,48,48,0.2); color:var(--red); border:1px solid rgba(224,48,48,0.4); }
   .inj-badge.doubtful { background:rgba(249,115,22,0.2); color:var(--orange); border:1px solid rgba(249,115,22,0.4); }
   .inj-badge.questionable { background:rgba(234,179,8,0.2); color:var(--yellow); border:1px solid rgba(234,179,8,0.4); }
   .inj-badge.dtd { background:rgba(234,179,8,0.2); color:var(--yellow); border:1px solid rgba(234,179,8,0.4); }
-  /* Injury note below stats */
   .inj-note { font-size:8px; color:var(--muted); margin-top:5px; line-height:1.3; font-style:italic; }
   .card-badge { position:absolute; top:7px; right:7px; font-size:8px; border-radius:3px; padding:1px 4px; font-weight:600; }
   .badge-used { color:var(--muted); background:var(--panel); border:1px solid var(--border); }
   .badge-pick { color:var(--gold); background:rgba(245,197,24,0.1); border:1px solid rgba(245,197,24,0.3); }
-
-  /* ── CONFIRM BAR ── */
   .confirm-bar { position:sticky; bottom:0; background:rgba(10,10,15,0.97); border-top:1px solid var(--border); padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; z-index:50; }
   .confirm-info { font-size:13px; color:var(--muted); }
   .confirm-info strong { color:var(--text); }
   .btn-save { padding:10px 22px; background:var(--gold); color:var(--court); border:none; border-radius:8px; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:1px; cursor:pointer; }
   .btn-save:hover { background:#ffd93d; }
-
-  /* ── STANDINGS ── */
   .lb-header { margin-bottom:20px; }
   .lb-header h1 { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:2px; margin-bottom:3px; }
   .lb-header p { color:var(--muted); font-size:12px; }
@@ -196,8 +164,6 @@
   .ph-detail { font-size:10px; color:var(--muted); }
   .user-col { display:flex; flex-direction:column; align-items:center; gap:2px; }
   .user-col .uc-name { font-size:9px; font-weight:600; }
-
-  /* ── HISTORY ── */
   .score-bar { background:var(--panel); border:1px solid var(--border); border-radius:13px; padding:16px; margin-bottom:20px; display:flex; align-items:center; gap:16px; }
   .big-num { font-family:'Bebas Neue',sans-serif; font-size:48px; color:var(--gold); line-height:1; flex-shrink:0; }
   .score-meta h3 { font-size:14px; font-weight:600; }
@@ -215,8 +181,6 @@
   .hist-badge { font-size:9px; font-weight:600; padding:2px 6px; border-radius:3px; flex-shrink:0; white-space:nowrap; }
   .hist-badge.saved { background:rgba(245,197,24,0.1); color:var(--gold); border:1px solid rgba(245,197,24,0.2); }
   .hist-badge.awaiting { background:rgba(59,130,246,0.1); color:var(--blue); border:1px solid rgba(59,130,246,0.25); }
-
-  /* ── UTILITY ── */
   .loading { display:flex; align-items:center; justify-content:center; padding:40px; color:var(--muted); font-size:13px; gap:10px; }
   .spinner { width:18px; height:18px; border:2px solid var(--border); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; }
   @keyframes spin { to { transform:rotate(360deg); } }
@@ -228,7 +192,6 @@
 </head>
 <body>
 
-<!-- ── LOGIN SCREEN ── -->
 <div id="loginScreen" class="screen active">
   <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px;">
     <div class="login-box">
@@ -246,21 +209,6 @@
   </div>
 </div>
 
-<!-- ── DISCLAIMER SCREEN ── -->
-<div id="disclaimerScreen" class="screen">
-  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px;">
-    <div class="disclaimer-box">
-      <div class="disclaimer-icon">⚠️</div>
-      <div class="disclaimer-title">DISCLAIMER</div>
-      <div class="disclaimer-card">
-        <p>I agree not to be a complaining little cry baby poof about any function or lack of function of this website. I also acknowledge that this annoying screen that I have to click on every day now is Jake's fault and he is a gay little faggot.</p>
-        <button class="btn-agree" onclick="acceptDisclaimer()" type="button">I AGREE</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── APP SCREEN ── -->
 <div id="appScreen" class="screen">
   <nav>
     <div class="logo">GAYBOS<span> · DRIVE TO THE FINALS</span></div>
@@ -291,7 +239,7 @@
     <div class="score-bar">
       <div class="big-num" id="myTotal">0</div>
       <div class="score-meta"><h3 id="myName">—</h3><p>Total PTS + REB + AST</p><p style="margin-top:4px;font-size:10px;color:var(--muted);" id="myPickCount">—</p></div>
-      <div class="rank-box"><div class="rnum" id="myRank">—</div><p>OF 4</p></div>
+      <div class="rank-box"><div class="rnum" id="myRank">—</div><p>OF 3</p></div>
     </div>
     <div class="section-label">YOUR PICKS</div>
     <div class="lb-card"><div style="padding:0 16px;" id="histList"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
@@ -310,17 +258,16 @@ const SUPABASE_URL = 'https://ncjztfqquavyyllcfrqa.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5janp0ZnFxdWF2eXlsbGNmcnFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0OTk1NzQsImV4cCI6MjA5MjA3NTU3NH0.HW6Aex2_5hMyAy8bV91LbBUiCqApSy87M3YMtE0Q4Ak';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// Jake removed — 3 players only
 const USER_MAP = {
   'hamduck1@hotmail.com':      { name:'Hamish', color:'#e03030' },
   'sam.goldsworthy@yahoo.com': { name:'Sam',    color:'#3b82f6' },
-  'standy_38@hotmail.com':     { name:'Jake',   color:'#22c55e' },
   'jamesleoatkin@gmail.com':   { name:'James',  color:'#a855f7' },
 };
 
 const DAY1_PICKS = [
   { email:'hamduck1@hotmail.com',      player_name:'Scottie Barnes', team:'TOR', day_date:'2026-04-18', player_id:'espn-4433134' },
   { email:'sam.goldsworthy@yahoo.com', player_name:'LeBron James',   team:'LAL', day_date:'2026-04-18', player_id:'espn-1966' },
-  { email:'standy_38@hotmail.com',     player_name:'Jalen Johnson',  team:'ATL', day_date:'2026-04-18', player_id:'espn-4433218' },
   { email:'jamesleoatkin@gmail.com',   player_name:'LeBron James',   team:'LAL', day_date:'2026-04-18', player_id:'espn-1966' },
 ];
 
@@ -330,13 +277,14 @@ const ESPN     = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba';
 const ESPN_WEB = 'https://site.web.api.espn.com/apis/site/v2/sports/basketball/nba';
 
 const cache = { scoreboard:{}, roster:{}, boxscore:{}, playoffStats:{} };
-
-// ── INJURY STATUS MAP ──
-// Populated from roster data on each fetchRoster call.
-// Key: espnId (string), Value: { status, shortStatus, description }
 const injuryMap = {};
 
-// Normalise ESPN injury status strings to one of: out | doubtful | questionable | dtd | null
+// ── UTC DATE — single source of truth, no timezone adjustments ──
+function utcDateStr(date) {
+  const d = date || new Date();
+  return d.toISOString().split('T')[0];
+}
+
 function normaliseInjuryStatus(raw) {
   if (!raw) return null;
   const s = raw.toLowerCase();
@@ -344,7 +292,6 @@ function normaliseInjuryStatus(raw) {
   if (s.includes('doubtful')) return 'doubtful';
   if (s.includes('questionable')) return 'questionable';
   if (s.includes('day-to-day') || s.includes('day to day') || s.includes('dtd')) return 'dtd';
-  if (s.includes('probable')) return null; // probable = effectively playing, don't flag
   return null;
 }
 
@@ -366,7 +313,6 @@ function injuryCardClass(espnId) {
 function injuryNoteHtml(espnId) {
   const inj = injuryMap[espnId];
   if (!inj || !inj.description) return '';
-  // Truncate to ~80 chars so it doesn't blow out the card
   const desc = inj.description.length > 80 ? inj.description.slice(0, 77) + '…' : inj.description;
   return `<div class="inj-note">${desc}</div>`;
 }
@@ -410,7 +356,6 @@ function parseGamesFromResponse(data, filterPlayoffs = false) {
     if (!away && competitors.length >= 2) away = competitors[1];
     if (!home || !away) return null;
 
-    // Series badge
     let seriesSummary = '';
     const seriesObj = comp.series || e.series || null;
     if (seriesObj) {
@@ -439,14 +384,14 @@ function parseGamesFromResponse(data, filterPlayoffs = false) {
       awayColor: '#' + (away.team.color || '666666'),
       status: e.status?.type?.description || '',
       time: e.status?.type?.shortDetail || '',
-      startTime: e.date,
+      startTime: e.date, // always UTC from ESPN
       notes: comp.notes?.[0]?.headline || '',
       seriesSummary,
     };
   }).filter(Boolean);
 }
 
-// ── ROSTER — extracts injury status alongside player data ──
+// ── ROSTER with injury extraction ──
 async function fetchRoster(teamId, teamAbbr) {
   if (cache.roster[teamId]) return cache.roster[teamId];
   try {
@@ -463,32 +408,16 @@ async function fetchRoster(teamId, teamAbbr) {
     }
     const players = athleteList.map(a => {
       const espnId = String(a.id);
-
-      // Extract injury status from athlete object
-      // ESPN puts injuries in athlete.injuries[] or athlete.status.type.name
       const injArr = a.injuries || [];
       if (injArr.length > 0) {
         const inj = injArr[0];
-        const rawStatus = inj.status || inj.type?.description || '';
-        const normStatus = normaliseInjuryStatus(rawStatus);
-        if (normStatus) {
-          injuryMap[espnId] = {
-            status: normStatus,
-            description: inj.longComment || inj.shortComment || inj.detail || '',
-          };
-        }
+        const normStatus = normaliseInjuryStatus(inj.status || inj.type?.description || '');
+        if (normStatus) injuryMap[espnId] = { status: normStatus, description: inj.longComment || inj.shortComment || inj.detail || '' };
       } else {
-        // Also check athlete-level status field
         const rawStatus = a.status?.type?.name || a.status?.name || '';
         const normStatus = normaliseInjuryStatus(rawStatus);
-        if (normStatus) {
-          injuryMap[espnId] = {
-            status: normStatus,
-            description: a.status?.type?.description || '',
-          };
-        }
+        if (normStatus) injuryMap[espnId] = { status: normStatus, description: a.status?.type?.description || '' };
       }
-
       return {
         id: `espn-${espnId}`,
         espnId,
@@ -505,7 +434,6 @@ async function fetchRoster(teamId, teamAbbr) {
   } catch(e) { console.log('roster err:', e); return []; }
 }
 
-// ── PLAYOFF STATS — aggregated from team schedule boxscores ──
 async function enrichWithPlayoffStats(players, teamId) {
   if (cache.playoffStats[teamId]) {
     const statsMap = cache.playoffStats[teamId];
@@ -604,16 +532,8 @@ async function autoUpdateScores() {
 }
 
 async function lockPastPicks() {
-  const today = localDateStr();
+  const today = utcDateStr();
   await sb.from('picks').update({ locked: true }).lt('day_date', today).eq('locked', false);
-}
-
-function localDateStr(date) {
-  const d = date || new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
 }
 
 // ── STATE ──
@@ -625,12 +545,6 @@ let editingDay = false;
 let allPicks = {};
 let playoffDays = [];
 let todayStr = '';
-
-// ── DISCLAIMER ──
-function acceptDisclaimer() {
-  document.getElementById('disclaimerScreen').classList.remove('active');
-  document.getElementById('appScreen').classList.add('active');
-}
 
 // ── AUTH ──
 async function handleLogin() {
@@ -653,7 +567,6 @@ async function handleLogout() {
   currentUser = null; currentProfile = null; allPicks = {}; playoffDays = [];
   selectedPlayerId = null; activeDayId = null; editingDay = false;
   document.getElementById('appScreen').classList.remove('active');
-  document.getElementById('disclaimerScreen').classList.remove('active');
   document.getElementById('loginScreen').classList.add('active');
   document.getElementById('emailInput').value = '';
   document.getElementById('passwordInput').value = '';
@@ -666,7 +579,6 @@ async function handleLogout() {
 window.addEventListener('load', async () => {
   try {
     const { data: { session } } = await sb.auth.getSession();
-    // If already logged in from a previous session, still show disclaimer
     if (session) await initApp(session.user);
   } catch(e) { console.log(e); }
 });
@@ -678,12 +590,11 @@ async function initApp(user) {
   const av = document.getElementById('userAvatar');
   av.textContent = currentProfile.name[0];
   av.style.background = `linear-gradient(135deg,${currentProfile.color},${currentProfile.color}88)`;
-
-  // Show disclaimer — user must tap through before seeing app
   document.getElementById('loginScreen').classList.remove('active');
-  document.getElementById('disclaimerScreen').classList.add('active');
+  document.getElementById('appScreen').classList.add('active');
 
-  todayStr = localDateStr();
+  todayStr = utcDateStr(); // ← pure UTC, no timezone adjustments
+
   await seedUserData();
   lockPastPicks();
   autoUpdateScores();
@@ -721,30 +632,35 @@ async function loadAllPicks() {
   });
 }
 
+// ── CALENDAR — all dates in UTC ──
 async function buildCalendar() {
   playoffDays = [];
   const now = new Date();
   for (let i = -14; i <= 21; i++) {
     const d = new Date(now);
-    d.setDate(d.getDate() + i);
-    const dateStr = localDateStr(d);
-    if (playoffDays.find(pd => pd.isoDate === dateStr)) continue; // dedup
+    d.setUTCDate(d.getUTCDate() + i);
+    const dateStr = utcDateStr(d);
+    if (playoffDays.find(pd => pd.isoDate === dateStr)) continue;
     const games = await fetchScoreboard(dateStr);
     if (games.length === 0) continue;
     const isPast = dateStr < todayStr;
     const isToday = dateStr === todayStr;
     let status = isPast ? 'locked' : isToday ? 'open' : 'future';
     if (isToday) {
+      // Lock today if the first game has already tipped off (compare UTC times directly)
       const firstGame = games.slice().sort((a,b) => new Date(a.startTime) - new Date(b.startTime))[0];
       if (firstGame && new Date(firstGame.startTime) <= now) status = 'locked';
     }
     const dayNames = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
     const monthNames = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    const utcDay = d.getUTCDay();
+    const utcDate = d.getUTCDate();
+    const utcMonth = d.getUTCMonth();
     playoffDays.push({
       isoDate: dateStr,
-      dayName: dayNames[d.getDay()],
-      shortDate: String(d.getDate()),
-      monthLabel: monthNames[d.getMonth()],
+      dayName: dayNames[utcDay],
+      shortDate: String(utcDate),
+      monthLabel: monthNames[utcMonth],
       status, games,
       playersByTeam: {},
     });
@@ -848,7 +764,6 @@ async function renderDayView(isoDate) {
     const hasStats = p && (p.pts || p.reb || p.ast);
     const avgTotal = hasStats ? (p.pts + p.reb + p.ast).toFixed(1) : '—';
     const avgLabel = hasStats ? `Playoff avg ${avgTotal} (${p.playoffGames || '?'} GP)` : 'Loading stats...';
-    // Warn if saved pick is now injured
     const injWarn = p && injuryMap[p.espnId]
       ? `<span style="color:var(--orange);font-size:11px;margin-left:6px;">⚠️ ${injuryMap[p.espnId].status.toUpperCase()}</span>`
       : '';
@@ -872,8 +787,6 @@ async function renderDayView(isoDate) {
 
   const grids = day.games.map(g => {
     const gamePlayers = allDayPlayers.filter(p => p.team === g.home || p.team === g.away);
-
-    // Sort: non-zero P+R+A descending, zeros at bottom; OUT players pushed to very bottom
     gamePlayers.sort((a, b) => {
       const aOut = injuryMap[a.espnId]?.status === 'out';
       const bOut = injuryMap[b.espnId]?.status === 'out';
@@ -886,7 +799,6 @@ async function renderDayView(isoDate) {
       if (bt === 0) return -1;
       return bt - at;
     });
-
     const seriesBadge = g.seriesSummary ? `<span class="series-badge">${g.seriesSummary}</span>` : '';
 
     if (gamePlayers.length === 0) return `<div class="game-section">
@@ -915,10 +827,11 @@ async function renderDayView(isoDate) {
       const cardBadge = (isSaved && !editingDay) ? '<span class="card-badge badge-pick">✓ SAVED</span>'
         : isSelected ? '<span class="card-badge badge-pick">→ SELECT</span>'
         : isUsed ? '<span class="card-badge badge-used">USED</span>' : '';
+      const hasInj = !!injClass;
       return `<div class="${cls}" onclick="${clickable ? `pickPlayer('${p.id}','${isoDate}')` : ''}">
         ${injuryBadgeHtml(p.espnId)}
         ${cardBadge}
-        <div class="player-name" style="${injClass ? 'padding-left:2px;margin-top:14px;' : ''}">${p.name}</div>
+        <div class="player-name" style="${hasInj ? 'padding-left:2px;margin-top:14px;' : ''}">${p.name}</div>
         <div class="player-pos">${p.team} · ${p.pos}</div>
         <div class="player-stats">
           <div class="stat"><div class="val">${p.pts}</div><div class="lbl">PTS</div></div>
@@ -1001,9 +914,17 @@ async function renderStandings() {
   const { data: picks } = await sb.from('picks').select('*');
   if (!profiles || !picks) return;
 
+  // Filter to active players only
+  const activeEmails = Object.keys(USER_MAP);
+  const activeProfiles = profiles.filter(p => {
+    const email = Object.entries(USER_MAP).find(([,v]) => v.name === p.name)?.[0];
+    return email && activeEmails.includes(email);
+  });
+
   const scores = {}, counts = {}, dailyBreakdown = {};
-  profiles.forEach(p => { scores[p.id] = 0; counts[p.id] = 0; dailyBreakdown[p.id] = []; });
+  activeProfiles.forEach(p => { scores[p.id] = 0; counts[p.id] = 0; dailyBreakdown[p.id] = []; });
   picks.forEach(pick => {
+    if (!scores.hasOwnProperty(pick.user_id)) return;
     if (pick.pts != null) {
       scores[pick.user_id] = (scores[pick.user_id] || 0) + pick.pts + pick.reb + pick.ast;
       counts[pick.user_id] = (counts[pick.user_id] || 0) + 1;
@@ -1011,8 +932,8 @@ async function renderStandings() {
     if (dailyBreakdown[pick.user_id]) dailyBreakdown[pick.user_id].push(pick);
   });
 
-  const sorted = [...profiles].sort((a, b) => (scores[b.id] || 0) - (scores[a.id] || 0));
-  const rc = ['gold','silver','bronze',''], rs = ['🥇','🥈','🥉','4'];
+  const sorted = [...activeProfiles].sort((a, b) => (scores[b.id] || 0) - (scores[a.id] || 0));
+  const rc = ['gold','silver','bronze'], rs = ['🥇','🥈','🥉'];
 
   document.getElementById('lbList').innerHTML = sorted.map((p, i) => {
     const isMe = p.id === currentUser.id;
@@ -1042,7 +963,7 @@ async function renderStandings() {
         }).join('')}</div>`;
     return `<div>
       <div class="lb-row${isMe ? ' me' : ''}" onclick="toggleBreakdown('bd-${p.id}', this)">
-        <div class="lb-rank ${rc[i]}">${rs[i]}</div>
+        <div class="lb-rank ${rc[i] || ''}">${rs[i] || (i+1)}</div>
         <div class="lb-avatar" style="background:${color}22;color:${color}">${p.name[0]}</div>
         <div class="lb-info">
           <h3>${p.name}${isMe ? '<span class="me-tag">YOU</span>' : ''}
@@ -1060,7 +981,7 @@ async function renderStandings() {
   const todayDay = playoffDays.find(d => d.isoDate === todayStr);
   const todayLocked = todayDay?.status === 'locked';
   document.getElementById('todayPicksLabel').textContent = todayLocked ? "TODAY'S PICKS" : "TODAY'S PICKS — HIDDEN UNTIL TIP-OFF";
-  document.getElementById('revealsGrid').innerHTML = profiles.map(p => {
+  document.getElementById('revealsGrid').innerHTML = activeProfiles.map(p => {
     const isMe = p.id === currentUser.id;
     const color = Object.values(USER_MAP).find(u => u.name === p.name)?.color || '#f5c518';
     const tp = todayPicks.find(t => t.user_id === p.id);
@@ -1077,7 +998,7 @@ async function renderStandings() {
   const lockedDays = playoffDays.filter(d => d.status === 'locked' && d.isoDate >= PLAYOFFS_START);
   if (lockedDays.length > 0) {
     document.getElementById('pickHistorySection').style.display = 'block';
-    const profilesSorted = [...profiles].sort((a, b) => {
+    const profilesSorted = [...activeProfiles].sort((a, b) => {
       const na = Object.values(USER_MAP).find(u => u.name === a.name)?.name || a.name;
       const nb = Object.values(USER_MAP).find(u => u.name === b.name)?.name || b.name;
       return na.localeCompare(nb);
@@ -1106,7 +1027,7 @@ async function renderStandings() {
   }
 }
 
-function toggleBreakdown(bdId, rowEl) {
+function toggleBreakdown(bdId) {
   const bd = document.getElementById(bdId);
   const chevId = bdId.replace('bd-', 'chev-');
   const chev = document.getElementById(chevId);
@@ -1124,19 +1045,31 @@ async function renderHistory() {
   if (!picks) return;
   let total = 0, scored = 0;
   picks.forEach(p => { if (p.pts != null) { total += p.pts + p.reb + p.ast; scored++; } });
+
+  // Only rank among active 3 players
+  const activeEmails = Object.keys(USER_MAP);
+  const activeProfiles = (profiles || []).filter(p => {
+    return Object.values(USER_MAP).some(u => u.name === p.name);
+  });
   const userScores = {};
-  if (profiles && allPicksData) {
-    profiles.forEach(p => userScores[p.id] = 0);
-    allPicksData.forEach(p => { if (p.pts != null) userScores[p.user_id] = (userScores[p.user_id] || 0) + p.pts + p.reb + p.ast; });
-  }
+  activeProfiles.forEach(p => userScores[p.id] = 0);
+  (allPicksData || []).forEach(p => {
+    if (userScores.hasOwnProperty(p.user_id) && p.pts != null)
+      userScores[p.user_id] = (userScores[p.user_id] || 0) + p.pts + p.reb + p.ast;
+  });
   const rank = Object.entries(userScores).sort((a, b) => b[1] - a[1]).findIndex(([id]) => id === currentUser.id) + 1;
+
   document.getElementById('myTotal').textContent = total;
   document.getElementById('myName').textContent = `${currentProfile.name}'s Score`;
   document.getElementById('myRank').textContent = `#${rank || 1}`;
   document.getElementById('myPickCount').textContent = `${picks.length} picks made · ${scored} scored`;
-  document.getElementById('histList').innerHTML = picks.length === 0
+
+  // Filter to playoff dates only
+  const playoffPicks = picks.filter(p => p.day_date >= PLAYOFFS_START);
+
+  document.getElementById('histList').innerHTML = playoffPicks.length === 0
     ? '<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px;">No picks yet</div>'
-    : picks.map(pick => {
+    : playoffPicks.map(pick => {
         const day = playoffDays.find(d => d.isoDate === pick.day_date);
         const dateLabel = day ? `${day.dayName} ${day.shortDate}` : pick.day_date.slice(5);
         const hasScore = pick.pts != null;
