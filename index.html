@@ -641,7 +641,6 @@ const endDate = new Date(now);
 endDate.setUTCDate(endDate.getUTCDate() + 21);
 for (let d = new Date(startDate); d <= endDate; d.setUTCDate(d.getUTCDate() + 1)) {
     const dateStr = utcDateStr(d);
-    const dateStr = utcDateStr(d);
     if (playoffDays.find(pd => pd.isoDate === dateStr)) continue;
     const games = await fetchScoreboard(dateStr);
     if (games.length === 0) continue;
