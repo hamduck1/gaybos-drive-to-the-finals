@@ -636,9 +636,11 @@ async function loadAllPicks() {
 async function buildCalendar() {
   playoffDays = [];
   const now = new Date();
-  for (let i = -14; i <= 21; i++) {
-    const d = new Date(now);
-    d.setUTCDate(d.getUTCDate() + i);
+  const startDate = new Date('2026-04-18');
+const endDate = new Date(now);
+endDate.setUTCDate(endDate.getUTCDate() + 21);
+for (let d = new Date(startDate); d <= endDate; d.setUTCDate(d.getUTCDate() + 1)) {
+    const dateStr = utcDateStr(d);
     const dateStr = utcDateStr(d);
     if (playoffDays.find(pd => pd.isoDate === dateStr)) continue;
     const games = await fetchScoreboard(dateStr);
